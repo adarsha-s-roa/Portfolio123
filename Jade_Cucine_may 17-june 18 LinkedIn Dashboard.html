@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jade Cucine Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#ffffff,#f5f7fa);padding:24px;margin:0;color:#1a202c}
+.wrap{max-width:1400px;margin:auto}
+.card{background:#fff;border-radius:18px;padding:28px;box-shadow:0 4px 18px rgba(0,0,0,.08);margin-bottom:24px}
+h1{margin:0;color:#0f766e;font-size:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.item{border:1px solid #e2e8f0;padding:18px;border-radius:14px;cursor:pointer;transition:.3s;background:#fff}
+.item:hover{transform:translateY(-4px);border-color:#0f766e}
+.badge{display:inline-block;background:#dbeafe;color:#0369a1;padding:8px 14px;border-radius:20px;font-size:12px;margin-top:8px}
+.muted{font-size:13px;color:#666}
+.block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-top:16px;white-space:pre-line;line-height:1.8}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+button{background:#0f766e;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer}
+.hidden{display:none}
+#toast{position:fixed;right:20px;bottom:20px;background:#0f766e;color:#fff;padding:12px 18px;border-radius:8px;display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="row">
+<div>
+<h1>Jade Cucine LinkedIn Dashboard</h1>
+<div class="muted">19 May – 18 June • 4 Posts / Week</div>
+</div>
+<div><strong id="count"></strong><div class="muted">Posts</div></div>
+</div>
+</div>
+
+<div id="calendar" class="card">
+<div class="grid" id="grid"></div>
+</div>
+
+<div id="detail" class="card hidden"></div>
+</div>
+
+<div id="toast">Copied</div>
+
+<script>
+const posts = [{"date": "19 May", "pillar": "Luxury Education", "topic": "Why Expensive Interiors Still Feel Cheap", "hook": "Luxury is not about cost. It is about detailing.", "caption": "A truly premium home is felt in the details \u2014 lighting balance, textures, finishes and thoughtful space planning.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com\n\n#LuxuryInteriors #InteriorDesign #ModernHomes #JadeCucine", "cta": "Save this post.", "concept": "Luxury psychology.", "creativeBrief": "Create a luxury split-screen visual showing cluttered expensive interiors vs refined minimal premium interiors. Use warm neutral palettes, elegant layouts, soft lighting and premium material contrasts. Focus on emotional luxury rather than excessive decoration.", "story": "Luxury is rarely about spending more.\n\nIt is about restraint, detailing and thoughtful execution.\n\nThe right lighting, proportions and textures create timeless spaces."}, {"date": "21 May", "pillar": "Process Transparency", "topic": "Inside Our Design Approval Process", "hook": "Good interiors are approved before they are manufactured.", "caption": "Every successful project begins with clarity, planning and detailed approvals before execution starts.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com\n\n#InteriorPlanning #DesignProcess #JadeCucine", "cta": "Follow for more insights.", "concept": "Execution trust.", "creativeBrief": "Create editorial visuals of material samples, drawings, moodboards and luxury design planning meetings. Include close-up details of textures, planning discussions and premium execution workflow.", "story": "Beautiful interiors are never accidental.\n\nA strong approval process creates smoother execution, better timelines and fewer surprises."}, {"date": "24 May", "pillar": "Educational Carousel", "topic": "5 Kitchen Storage Mistakes Homeowners Regret", "hook": "Most kitchens look good. Few work efficiently.", "caption": "A functional kitchen changes everyday living more than most homeowners realise.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com\n\n#KitchenDesign #LuxuryKitchen #InteriorTips #JadeCucine", "cta": "Save before planning your kitchen.", "concept": "Storage education.", "creativeBrief": "Create carousel slides showing inefficient vs efficient storage layouts with premium modern kitchen visuals. Include corner units, tall units, drawer systems and hidden storage.", "story": "Storage planning affects convenience every single day.\n\nThe right layouts simplify routines and reduce clutter beautifully."}, {"date": "26 May", "pillar": "Founder Insight", "topic": "What Clients Actually Want In 2026", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "28 May", "pillar": "Project Showcase", "topic": "Minimal Luxury Kitchen Reveal", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "31 May", "pillar": "Industry Insight", "topic": "Why Modular Kitchens Fail After 3\u20135 Years", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "2 June", "pillar": "Client Psychology", "topic": "Why Homeowners Delay Interior Decisions", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "4 June", "pillar": "Material Education", "topic": "Matte vs Glossy Finishes", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "7 June", "pillar": "Behind The Scenes", "topic": "Factory Precision In Action", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "9 June", "pillar": "Design Psychology", "topic": "Why Warm Lighting Changes Everything", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "11 June", "pillar": "Transformation Story", "topic": "From Empty Space To Everyday Luxury", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "14 June", "pillar": "Interactive Post", "topic": "What Defines Luxury Living Today?", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "16 June", "pillar": "Authority Building", "topic": "Why Execution Matters More Than Design Renders", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}, {"date": "18 June", "pillar": "Brand Philosophy", "topic": "What Designed Around You Really Means", "hook": "Premium interiors are built through thoughtful decisions.", "caption": "Luxury interiors combine functionality, precision and timeless aesthetics.\n\nInstagram: @jadecucine\nProjects IG: @jade.cucine\nWebsite: www.jadecucine.com", "cta": "Follow Jade Cucine for more insights.", "concept": "Luxury positioning.", "creativeBrief": "Create premium editorial-style luxury interior visuals aligned with the Jade Cucine aesthetic using warm neutrals, marble, wood textures and elegant lighting.", "story": "Thoughtful design improves everyday living while creating spaces that feel timeless and functional."}];
+
+document.getElementById('count').innerText = posts.length;
+
+const grid = document.getElementById('grid');
+const detail = document.getElementById('detail');
+const calendar = document.getElementById('calendar');
+
+function toast(){
+ const t=document.getElementById('toast');
+ t.style.display='block';
+ setTimeout(()=>t.style.display='none',1200);
+}
+
+function copyText(v){
+ navigator.clipboard.writeText(v||'');
+ toast();
+}
+
+function showCalendar(){
+ detail.classList.add('hidden');
+ calendar.classList.remove('hidden');
+}
+
+function showPost(i){
+ const p=posts[i];
+ calendar.classList.add('hidden');
+ detail.classList.remove('hidden');
+
+ detail.innerHTML = `
+ <div class="row">
+ <div>
+ <div class="muted">${p.date} • 10:30 AM</div>
+ <h2>${p.topic}</h2>
+ <span class="badge">${p.pillar}</span>
+ </div>
+ <button onclick="showCalendar()">Back</button>
+ </div>
+
+ <div class="block"><div class="row"><strong>Creative Brief</strong><button onclick='copyText(${JSON.stringify(p.creativeBrief)})'>Copy</button></div>${p.creativeBrief}</div>
+
+ <div class="block"><div class="row"><strong>Hook</strong><button onclick='copyText(${JSON.stringify(p.hook)})'>Copy</button></div>${p.hook}</div>
+
+ <div class="block"><div class="row"><strong>Caption</strong><button onclick='copyText(${JSON.stringify(p.caption)})'>Copy</button></div>${p.caption}</div>
+
+ <div class="block"><div class="row"><strong>CTA</strong><button onclick='copyText(${JSON.stringify(p.cta)})'>Copy</button></div>${p.cta}</div>
+
+ <div class="block"><strong>Concept</strong><br>${p.concept}</div>
+
+ <div class="block"><div class="row"><strong>Ready-made Story / Explanation</strong><button onclick='copyText(${JSON.stringify(p.story)})'>Copy</button></div>${p.story}</div>
+ `;
+}
+
+posts.forEach((p,i)=>{
+ grid.innerHTML += `
+ <div class="item" onclick="showPost(${i})">
+ <div class="muted">${p.date} • 10:30 AM</div>
+ <strong>${p.topic}</strong>
+ <div class="muted">${p.pillar}</div>
+ </div>`;
+});
+</script>
+</body>
+</html>
